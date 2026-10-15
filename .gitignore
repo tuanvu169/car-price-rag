@@ -1,0 +1,20 @@
+# API keys
+.env
+.env.*
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env_conda/
+
+# Conda / IDE
+.idea/
+.vscode/
+
+# ChromaDB
+chroma_db_cars/
+
+# Local data
+data_base_gia_xe.xlsx
