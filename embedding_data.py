@@ -13,7 +13,31 @@ from config import (
     EMBEDDING_DEVICE,
     REBUILD_VECTOR_DB,
 )
+def parse_price(price_str):
+    if not price_str:
+        return None
+    s = str(price_str).strip().lower()
+    s = s.replace("đ", "").replace("vnd", "").replace(",", "").replace(".", "")
+    s = s.replace("tỷ", "000000000").replace("triệu", "000000")
+    try:
+        return int(float(s))
+    except:
+        return None
 
+def parse_year(year_str):
+    try:
+        return int(str(year_str).strip())
+    except:
+        return None
+
+def parse_km(km_str):
+    if not km_str:
+        return None
+    s = str(km_str).lower().replace("km", "").replace(",", "").replace(".", "").strip()
+    try:
+        return int(float(s))
+    except:
+        return None
 
 def convert_data_to_documents(file_path):
     df = pd.read_excel(file_path)
@@ -64,9 +88,9 @@ def convert_data_to_documents(file_path):
             "row_id": int(idx),
             "brand": brand,
             "model": model,
-            "price": price,
-            "year": year,
-            "km": km,
+            "price": parse_price(price),
+            "year": parse_year(year),
+            "km": parse_km(km),
             "engine": engine,
             "color": exterior,
             "condition": condition,
